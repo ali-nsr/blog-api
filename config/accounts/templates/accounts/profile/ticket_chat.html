@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+{% block content %}
+    <div class="container main-container" style="transform: none;">
+        <div class="row" style="transform: none;">
+            <!-- Start Sidebar -->
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar"
+                 style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                {% include 'accounts/profile/sidebar.html' %}
+                <!-- End Sidebar -->
+                <!-- Start Content -->
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <div>
+                                    وضعیت تیکت:
+                                    <span class="badge badge-info p-2">{{ ticket.get_status_display }}</span>
+                                </div>
+                                <div class="mt-2">
+                                    شماره تیکت:
+                                    <span class="badge badge-info p-2"># {{ ticket.id }} </span>
+                                </div>
+                                <div class="mt-2">
+                                    <i class="mdi mdi-clock text-info"></i>
+                                    <span>{{ ticket.jalali_created_date }}</span>
+                                </div>
+                            </div>
+                            <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                                <h2>همه تیکت ها</h2>
+                            </div>
+                            <div class="p-1">
+                                {% for data in tickets %}
+                                    {% if data.content %}
+                                        <div class="card mt-3">
+                                            <div class="card-body">
+                                                {{ data.content }}
+                                                <div>
+                                                    <span class="badge badge-info p-1 ml-2">{{ data.ticket.user.full_name }}</span>
+                                                    <span class="badge badge-info p-1 ml-2">{{ data.get_ticketUserStatus_display }}</span>
+                                                    <span class="badge badge-info p-1 ml-2">{{ data.jalali_created_date }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if data.reply %}
+                                        <div class="card mt-3">
+                                            <div class="card-header">
+                                                {{ data.content }}
+                                                <div>
+                                                    <span class="badge badge-success p-1 ml-2">پشتیبان</span>
+                                                    <span class="badge badge-success p-1 ml-2">{{ data.jalali_reply_date }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+
+                            <!-- Reply Form-->
+                            {% if ticket.status == 'open' %}
+                                <form class="comment-form row mt-5 p-1"
+                                      action="{% url 'ticket:ticket_reply' ticket.id %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group col-lg-12 col-md-12 mt-2">
+                                                                                    <textarea
+                                                                                            class="form-control col-lg-9 col-md-9 m-auto"
+                                                                                            style="margin-top: 3px !important;"
+                                                                                            name="content"
+                                                                                            rows="8"
+                                                                                            placeholder="متن تیکت"
+                                                                                            required></textarea>
+                                    </div>
+                                    <div class="form-submit col-lg-12 col-md-12 m-auto">
+                                        <button class="btn btn-success btn-block" type="submit">ارسال
+                                        </button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <div class="my-4">
+                                    <div class="alert alert-danger text-center">
+                                        تیکت بسته شده است و امکان ارسال پاسخ جدید وجود ندارد
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

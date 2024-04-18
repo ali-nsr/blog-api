@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks %}
+{% block window_title %}{% endblock %}
+{% block content %}
+    <style>
+        .rtl {
+            direction: rtl;
+        }
+    </style>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="container">
+                                <h2 class="text-info text-center">
+                                    در سفیر ثروت فروشنده شوید
+                                </h2>
+                                <form action="{% url 'accounts:seller_document_form' %}" method="post"
+                                      enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        {{ form.static_phone.label }}:
+                                        {% render_field form.static_phone class="form-control rtl mb-2" placeholder="شماره ثابت با کد: 021-00000000" %}
+                                        {{ form.national_id.label }}:
+                                        {% render_field form.national_id class="form-control rtl mb-2" placeholder="123456789" %}
+                                        {{ form.website_address.label }}:
+                                        {% render_field form.website_address class="form-control rtl mb-2" placeholder="https://www.example.com" %}
+                                        {{ form.instagram_address.label }}:
+                                        {% render_field form.instagram_address class="form-control rtl mb-2" placeholder="https://instagram.com/pagename" %}
+                                        {{ form.credit_card_number.label }}:
+                                        {% render_field form.credit_card_number class="form-control rtl mb-2" placeholder="شماره کارت بانکی" %}
+                                        {{ form.credit_card_hsb.label }}:
+                                        {% render_field form.credit_card_hsb class="form-control rtl mb-2" placeholder="شماره حساب بانکی" %}
+                                        {{ form.credit_card_shb.label }}:
+                                        {% render_field form.credit_card_shb class="form-control rtl mb-2" placeholder="شماره شبا بانکی" %}
+                                        <div class="col-6">
+                                            {{ form.personal_image.label }}:
+                                            {% render_field form.personal_image class="mb-2" %}
+                                        </div>
+                                        <div class="col-6">
+                                            {{ form.national_id_image.label }}:
+                                            {% render_field form.national_id_image class="mb-2" %}
+                                        </div>
+
+                                        {% if request.user.is_authenticated and request.user.is_verify %}
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-success">ثبت اطلاعات
+                                                </button>
+                                            </div>
+                                        {% elif request.user.is_authenticated and not request.user.is_verify %}
+                                            <div class="col-12 text-center">
+                                                <a href="{% url 'accounts:verify_register' %}">
+                                                    <button type="button" class="btn btn-warning">لفطا ابتدا
+                                                        هویت
+                                                        خود
+                                                        را
+                                                        تایید کنید.
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        {% elif not request.user.is_authenticated or not request.user.is_verify %}
+                                            <div class="col-12 text-center">
+                                                <a href="{% url 'accounts:register_page' %}">
+                                                    <button type="button" class="btn btn-success">
+                                                        لطفا ابتدا ثبت نام کنید.
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

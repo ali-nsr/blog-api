@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container main-container" style="transform: none;">
+        <div class="row" style="transform: none;">
+            <!-- Start Sidebar -->
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar"
+                 style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                {% include 'accounts/profile/sidebar.html' %}
+                <!-- End Sidebar -->
+                <!-- Start Content -->
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <p class="m-auto">
+                                    <a href="{% url 'ticket:new_ticket' %}" class="btn btn-primary-cm btn-block">تیکت جدید</a>
+                                </p>
+                            </div>
+                            <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                                <h2>همه تیکت ها</h2>
+                            </div>
+
+
+                            {% if tickets %}
+                                <div class="dt-sl">
+                                    <div class="table-responsive">
+                                        <table class="table table-order">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    شناسه
+                                                </th>
+                                                <th>
+                                                    عنوان
+                                                </th>
+                                                <th>
+                                                    تاریخ رسانی
+                                                </th>
+                                                <th>
+                                                    وضعیت
+                                                </th>
+                                                <th>
+                                                    نمایش
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for ticket in tickets %}
+                                                <tr>
+                                                    <td class="align-middle text-center"><p
+                                                            class="mt-2 font-16">{{ ticket.id }}</p>
+                                                    </td>
+                                                    <td class="align-middle text-center"><p
+                                                            class="mt-2 font-16"> {{ ticket.title }}
+                                                    </p>
+                                                    </td>
+                                                    <td class="align-middle text-center"><p
+                                                            class="mt-2 font-16">{{ ticket.jalali_created_date }}</p>
+                                                    </td>
+                                                    <td class="align-middle text-center"><p
+                                                            class="mt-2 font-16">{{ ticket.get_status_display }}</p>
+                                                    </td>
+                                                    <td class="align-middle text-center"><a
+                                                            href="{% url 'ticket:ticket_chat' ticket.id %}"
+                                                            class="btn btn-success btn-sm">نمایش</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <table class="table shadow-none table-bordered">
+                                    <thead>
+                                    <tr>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="alert alert-danger text-center">
+                                    <p class="m-auto">تیکتی یافت نشد.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

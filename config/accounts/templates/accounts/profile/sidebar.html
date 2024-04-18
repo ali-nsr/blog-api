@@ -1,0 +1,131 @@
+{% load static humanize %}
+<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;">
+    <div class="profile-sidebar dt-sl">
+        <div class="dt-sl dt-sn border mb-3">
+            <div class="profile-sidebar-header dt-sl">
+                <div class="d-flex align-items-center">
+                    <div class="profile-avatar">
+                        <img src="
+
+
+                                {% if request.user.image %}{{ request.user.image.url }}{% else %}{% static 'img/theme/avatar.png' %}{% endif %}"
+                             alt="">
+                    </div>
+                    <div class="profile-header-content mr-3 mt-2">
+                        <span class="d-block profile-username">{{ request.user.full_name }}</span>
+                        <span class="d-block profile-phone">{{ request.user.phone }}</span>
+                    </div>
+                </div>
+                <div class="profile-point mt-3 mb-2 dt-sl">
+                    <span class="label-profile-point">کیف پول:</span>
+                    <span class="float-left value-profile-point">{{ request.user.credit }}</span>
+                </div>
+                <div class="profile-link mt-2 dt-sl">
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <a href="{% url 'accounts:change_password' %}">
+                                <i class="mdi mdi-lock-reset"></i>
+                                <span class="d-block">تغییر رمز</span>
+                            </a>
+                        </div>
+                        <div class="col-6 text-center">
+                            <a href="{% url 'accounts:logout_page' %}">
+                                <i class="mdi mdi-logout-variant"></i>
+                                <span class="d-block">خروج از حساب</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#        <div class="dt-sl dt-sn mb-3 text-center">#}
+        {#            <a href="#">#}
+        {#                <img src="{% static 'img/banner/sidebar-banner-3.jpg' %}" class="img-fluid" alt="">#}
+        {#            </a>#}
+        {#        </div>#}
+        <div class="dt-sl dt-sn border mb-3">
+            <div class="profile-menu-section dt-sl">
+                <div class="label-profile-menu mt-2 mb-2">
+                    <span>حساب کاربری شما</span>
+                </div>
+                <div class="profile-menu">
+                    <ul>
+                        {% with request.resolver_match.url_name as url_name %}
+                            <li>
+                                <a href="{% url 'accounts:dashboard' %}"
+                                   class="{% if url_name == 'dashboard' %}active{% endif %}">
+                                    <i class="mdi mdi-account-circle-outline"></i>
+                                    پروفایل
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:paid_orders' %}"
+                                   class="{% if url_name == 'paid_orders' %}active{% endif %}">
+                                    <i class="mdi mdi-cart-outline"></i>
+                                    همه سفارش ها
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'ticket:ticket_list' %}"
+                                   class="{% if url_name == 'ticket_list' %}active{% endif %}">
+                                    <i class="mdi mdi-email-outline"></i>
+                                    تیکت پشتیبانی
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:favourite' %}"
+                                   class="{% if url_name == 'favourite' %}active{% endif %}">
+                                    <i class="mdi mdi-heart-outline"></i>
+                                    لیست علاقمندی ها
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'accounts:create_credit' %}"
+                                   class="{% if url_name == 'create_credit' %}active{% endif %}">
+                                    <i class="mdi mdi-credit-card-outline"></i>
+                                    افزایش کیف پول
+                                </a>
+                            </li>
+                            {#                            <li>#}
+                            {#                                <a href="#">#}
+                            {#                                    <i class="mdi mdi-glasses"></i>#}
+                            {#                                    نقد و نظرات#}
+                            {#                                </a>#}
+                            {#                            </li>#}
+                            {#                            <li>#}
+                            {#                                <a href="#">#}
+                            {#                                    <i class="mdi mdi-sign-direction"></i>#}
+                            {#                                    آدرس ها#}
+                            {#                                </a>#}
+                            {#                            </li>#}
+                            {#                            <li>#}
+                            {#                                <a href="#">#}
+                            {#                                    <i class="mdi mdi-eye-outline"></i>#}
+                            {#                                    بازدیدهای اخیر#}
+                            {#                                </a>#}
+                            {#                            </li>#}
+                            <li>
+                                <a href="{% url 'accounts:profile_info' %}"
+                                   class="{% if url_name == 'profile_info' %}active{% endif %}">
+                                    <i class="mdi mdi-account-edit-outline"></i>
+                                    اطلاعات شخصی
+                                </a>
+                            </li>
+                        {% endwith %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="resize-sensor"
+         style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
+        <div class="resize-sensor-expand"
+             style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+            <div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 311px; height: 776px;"></div>
+        </div>
+        <div class="resize-sensor-shrink"
+             style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+            <div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div>
+        </div>
+    </div>
+</div></div>
